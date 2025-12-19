@@ -329,10 +329,6 @@ Saat Serial Monitor Arduino IDE terbuka, port COM milik ESP32 “dikunci” oleh
 ### Pertanyaan & Komentar
 - Silakan buka `issue` di repositori utama untuk bertanya atau memberi masukan.
 
-<p align="center">
-  <b>✨ Terima kasih! ✨</b><br>
-</p>
-
 ---
 <h1 align="center">Gambar Hasil Kerja di ROS</h1>
 <p align="center">
@@ -347,4 +343,8 @@ Saat Serial Monitor Arduino IDE terbuka, port COM milik ESP32 “dikunci” oleh
   <img src="Hasil Alat.jpeg" alt="Hasil Alat.jpeg" width="80%">
 </p>
 <p align="center">
+</p>
+
+<p align="center">
+  <b>✨ Terima kasih! ✨</b><br>
 </p>
