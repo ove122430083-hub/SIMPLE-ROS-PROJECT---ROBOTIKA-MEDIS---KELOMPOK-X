@@ -58,10 +58,10 @@ Arsitektur ini memungkinkan komunikasi dua arah antara perangkat embedded dan si
 ---
 ## 3 — Diagram Blok Sistem
 <p align="center">
-  <img src="header.png" alt="Diagram Alir.jpeg" width="80%">
+  <img src="Diagram Alir.jpeg" alt="Diagram Alir.jpeg" width="80%">
 </p>
 
-<h1 align="center">🤖 ROS2 + ESP32 Sensor PIR Detection System</h1>
+<h1 align="center">Diagram Blok Sistem</h1>
 <p align="center">
   <i>Project MK Robotika Medis</i>
 </p>
