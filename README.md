@@ -2,7 +2,7 @@
   <img src="header.png" alt="header.png" width="80%">
 </p>
 
-<h1 align="center">🤖 ROS2 + ESP32 Ultrasonic Monitoring System</h1>
+<h1 align="center">🤖 ROS2 + ESP32 Sensor PIR Detection System</h1>
 <p align="center">
   <i>Project MK Robotika Medis</i>
 </p>
@@ -40,6 +40,7 @@ Arsitektur ini memungkinkan komunikasi dua arah antara perangkat embedded dan si
 | 4 | Kabel jumper | Beberapa |
 | 5 | Kabel USB | 1 |
 | 6 | PC Windows + Python + PIXI | 1 |
+| 7 | Sensor PIR | 1 |
 
 ---
 ## 2 — Perakitan HC-SR04 dengan ESP32
@@ -65,31 +66,57 @@ HC-SR04 Echo → R1 (1.8kΩ) →+→ GPIO4 ESP32
 ```
 
 ### Program ESP32 (Arduino IDE)
-#define PIR_PIN   5      // D5 ESP32 → Signal PIR
-#define RELAY_PIN 26     // Pin input Relay (HIGH = ON)
+#include <WiFi.h>
+
+// --- GANTI SESUAI HOTSPOT HP KAMU ---
+const char* ssid = "Zero30";
+const char* password = "smstr7ip4";
+
+#define PIR_PIN     5
+#define RELAY_PIN   26
+
+WiFiServer server(8888); // Port pintu masuk data
 
 void setup() {
   Serial.begin(115200);
-
-  pinMode(PIR_PIN, INPUT);
+  pinMode(PIR_PIN, INPUT_PULLUP);
   pinMode(RELAY_PIN, OUTPUT);
+  digitalWrite(RELAY_PIN, LOW);
 
-  digitalWrite(RELAY_PIN, LOW);   // Lampu awal kondisi MATI
+  // Konek WiFi
+  Serial.print("Menghubungkan WiFi");
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  
+  Serial.println("\nWiFi Terhubung!");
+  Serial.print("IP Address ESP32: ");
+  Serial.println(WiFi.localIP()); // <--- WAJIB DICATAT ANGKA INI!
+  
+  server.begin();
 }
 
 void loop() {
-  int gerakan = digitalRead(PIR_PIN);
+  WiFiClient client = server.available(); // Cek apakah Ubuntu mau konek
 
-  if (gerakan == HIGH) {
-    Serial.println("Gerakan Terdeteksi!");
-    digitalWrite(RELAY_PIN, HIGH);   // ✅ Lampu MENYALA
-  } 
-  else {
-    Serial.println("Tidak ada gerakan");
-    digitalWrite(RELAY_PIN, LOW);    // ✅ Lampu MATI
+  if (client) {
+    while (client.connected()) {
+      int pir = digitalRead(PIR_PIN);
+
+      // Kirim angka "1" (Gerak) atau "0" (Diam) ke Ubuntu
+      if (pir == HIGH) {
+        client.println("1"); 
+        digitalWrite(RELAY_PIN, HIGH);
+      } else {
+        client.println("0");
+        digitalWrite(RELAY_PIN, LOW);
+      }
+      delay(100); 
+    }
+    client.stop();
   }
-
-  delay(300);
 }
 ```
 OUTPUT: angka jarak dalam cm via port COM.
@@ -176,6 +203,7 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
 
 ```
 ---
