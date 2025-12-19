@@ -13,7 +13,7 @@
 |----------------------------|-----------|
 | Ivan Fulvian Pitoyo                  | 122430064 |
 | Aidah Zahran Nurbati Rohmah          | 122430134 |
-| Ove Dewanda Ratih                    | 122430083 |
+| Ove Dewanda                          | 122430083 |
 | Meichel Naek Silalahi                | 122430066 |
 
 ---
