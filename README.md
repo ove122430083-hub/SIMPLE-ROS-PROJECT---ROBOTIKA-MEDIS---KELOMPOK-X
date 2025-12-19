@@ -24,7 +24,7 @@ Sistem ini merupakan implementasi **ROS2** dengan integrasi **ESP32** sebagai pe
 
 Dalam project ini:
 - **ESP32 berperan sebagai *Node Publisher*** yang bertugas mengirimkan data apakah ada gerakan yang dibaca oleh sensor PIR **HC-SR04** melalui protokol **micro-ROS**.
-- **Relay yang menjalankan ROS2 berfungsi sebagai *Node Subscriber*** yang menerima, memproses, dan menampilkan data jarak tersebut secara *real-time*.
+- **Relay yang menjalankan ROS2 berfungsi sebagai *Node Subscriber*** yang menerima, memproses, dan menampilkan data terdeteksi tersebut secara *real-time*.
 
 Arsitektur ini memungkinkan komunikasi dua arah antara perangkat embedded dan sistem ROS2 melalui jaringan, sehingga data dari sensor dapat langsung dimanfaatkan pada sisi host untuk monitoring maupun pengolahan lebih lanjut.
 
@@ -132,7 +132,7 @@ void loop() {
   }
 }
 ```
-OUTPUT: angka jarak dalam cm via port COM.
+OUTPUT: angka 0 atau 1 dalam cm via port COM.
 ---
 
 ## 3 — Persiapan Workspace PIXI
@@ -221,7 +221,7 @@ if __name__ == '__main__':
 ```
 ---
 ### **Subscriber: `relay_display.py`**
-Menampilkan nilai jarak di terminal.
+Menampilkan nilai 0 atau 1 terdeteksi di terminal.
 ```python
 import rclpy
 from rclpy.node import Node
@@ -334,5 +334,17 @@ Saat Serial Monitor Arduino IDE terbuka, port COM milik ESP32 “dikunci” oleh
 </p>
 
 ---
+<h1 align="center">Gambar Hasil Kerja di ROS</h1>
+<p align="center">
+  <img src="Hasil Gambar.jpeg" alt="Hasil Gambar.jpeg" width="80%">
+</p>
+<p align="center">
+</p>
 
-
+---
+<h1 align="center">Gambar Rangkaian</h1>
+<p align="center">
+  <img src="Hasil Alat.jpeg" alt="Hasil Alat.jpeg" width="80%">
+</p>
+<p align="center">
+</p>
