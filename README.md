@@ -14,7 +14,7 @@
 | Ivan Fulvian Pitoyo                  | 122430064 |
 | Aidah Zahran Nurbati Rohmah          | 122430134 |
 | Ove Dewanda Ratih                    | 122430083 |
-| Meichel Naek Silalahi                | 122430059 |
+| Meichel Naek Silalahi                | 122430066 |
 
 ---
 
@@ -63,7 +63,6 @@ Arsitektur ini memungkinkan komunikasi dua arah antara perangkat embedded dan si
 
 <h1 align="center">Diagram Blok Sistem</h1>
 <p align="center">
-  <i>Project MK Robotika Medis</i>
 </p>
 
 ---
