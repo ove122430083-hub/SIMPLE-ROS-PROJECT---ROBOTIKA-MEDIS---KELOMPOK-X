@@ -22,7 +22,7 @@
 Sistem ini merupakan implementasi **ROS2** dengan integrasi **ESP32** sebagai perangkat embedded untuk membaca data sensor, yang disusun untuk memenuhi tugas mata kuliah **Robotika Medis**.
 
 Dalam project ini:
-- **ESP32 berperan sebagai *Node Publisher*** yang bertugas mengirimkan data jarak yang dibaca oleh sensor ultrasonik **HC-SR04** melalui protokol **micro-ROS**.
+- **ESP32 berperan sebagai *Node Publisher*** yang bertugas mengirimkan data apakah ada gerakan yang dibaca oleh sensor PIR **HC-SR04** melalui protokol **micro-ROS**.
 - **Laptop/PC yang menjalankan ROS2 berfungsi sebagai *Node Subscriber*** yang menerima, memproses, dan menampilkan data jarak tersebut secara *real-time*.
 
 Arsitektur ini memungkinkan komunikasi dua arah antara perangkat embedded dan sistem ROS2 melalui jaringan, sehingga data dari sensor dapat langsung dimanfaatkan pada sisi host untuk monitoring maupun pengolahan lebih lanjut.
@@ -164,7 +164,8 @@ smart_system/
 ---
 
 ## 5 — Pembuatan _Publisher_ dan _Subscriber_  
-### **Publisher: `publisher_ultrasonic.py`**
+### **Publisher: `publisher.py`**
+```
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Bool
@@ -203,7 +204,6 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-
 
 ```
 ---
@@ -266,7 +266,7 @@ colcon build
 ### **Menjalankan Publisher**
 powershell
 ```bash
-ros2 run smart_system publisher_ultrasonic
+ros2 run smart_system publisher
 ```
 
 ### **Menjalankan Subscriber (Terminal baru)**
