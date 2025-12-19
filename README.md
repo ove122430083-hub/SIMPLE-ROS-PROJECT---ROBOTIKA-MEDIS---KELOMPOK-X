@@ -14,6 +14,7 @@
 | Ivan Fulvian Pitoyo                  | 122430064 |
 | Aidah Zahran Nurbati Rohmah          | 122430134 |
 | Ove Dewanda Ratih                    | 122430083 |
+| Meichel Naek Silalahi                | 122430059 |
 
 ---
 
@@ -23,7 +24,7 @@ Sistem ini merupakan implementasi **ROS2** dengan integrasi **ESP32** sebagai pe
 
 Dalam project ini:
 - **ESP32 berperan sebagai *Node Publisher*** yang bertugas mengirimkan data apakah ada gerakan yang dibaca oleh sensor PIR **HC-SR04** melalui protokol **micro-ROS**.
-- **Laptop/PC yang menjalankan ROS2 berfungsi sebagai *Node Subscriber*** yang menerima, memproses, dan menampilkan data jarak tersebut secara *real-time*.
+- **Relay yang menjalankan ROS2 berfungsi sebagai *Node Subscriber*** yang menerima, memproses, dan menampilkan data jarak tersebut secara *real-time*.
 
 Arsitektur ini memungkinkan komunikasi dua arah antara perangkat embedded dan sistem ROS2 melalui jaringan, sehingga data dari sensor dapat langsung dimanfaatkan pada sisi host untuk monitoring maupun pengolahan lebih lanjut.
 
@@ -37,10 +38,11 @@ Arsitektur ini memungkinkan komunikasi dua arah antara perangkat embedded dan si
 | 1 | ESP32 Dev Board | 1 |
 | 2 | Sensor PIR (Passive Infrared) | 1 |
 | 3 | Breadboard | 1 |
-| 4 | Kabel jumper | Beberapa |
-| 5 | Kabel USB | 1 |
+| 4 | Kabel jumper | 10 |
+| 5 | Kabel USB type C| 1 |
 | 6 | PC Windows + Python + PIXI | 1 |
 | 7 | Sensor PIR | 1 |
+| 8 | Expansion Board ESP 32 | 1 |
 
 ---
 ## 2 — Perakitan HC-SR04 dengan ESP32
@@ -54,18 +56,30 @@ Arsitektur ini memungkinkan komunikasi dua arah antara perangkat embedded dan si
 | Out | D26 |
 
 ---
-### Rangkaian Resistor Divider (Wajib untuk Echo → ESP32)
-Tujuan: menurunkan 5V Echo menjadi ~3.3V.
+## 3 — Diagram Blok Sistem
+<p align="center">
+  <img src="header.png" alt="Diagram Alir.jpeg" width="80%">
+</p>
+
+<h1 align="center">🤖 ROS2 + ESP32 Sensor PIR Detection System</h1>
+<p align="center">
+  <i>Project MK Robotika Medis</i>
+</p>
+
+---
+### Rangkaian Resistor Divider (Wajib untuk menggunakan sumber lain ESP32)
+Tujuan: 
 
 ```markdown
-HC-SR04 Echo → R1 (1.8kΩ) →+→ GPIO4 ESP32
-                           |
-                           R2 (3.3kΩ)
-                           |
-                          GND
+ ESP32 → Sensor PIR
+          |
+         Relay
+          |
+         GND
 ```
 
 ### Program ESP32 (Arduino IDE)
+```
 #include <WiFi.h>
 
 // --- GANTI SESUAI HOTSPOT HP KAMU ---
@@ -207,7 +221,7 @@ if __name__ == '__main__':
 
 ```
 ---
-### **Subscriber: `subscriber_display.py`**
+### **Subscriber: `relay_display.py`**
 Menampilkan nilai jarak di terminal.
 ```python
 import rclpy
@@ -277,7 +291,7 @@ cd C:\pixi_ws\ros2_ws
 . install/setup.ps1
 ros2 run smart_system subscriber_display
 ```
-Subscriber akan menampilkan data jarak secara _real time_.
+Subscriber akan menampilkan data perubahan dengan angka 1 untuk menyalakan lampu relay secara _real time_ dan angka 0 lampu relay tetap off
 ---
 
 ## 8 — Menghentikan Node
